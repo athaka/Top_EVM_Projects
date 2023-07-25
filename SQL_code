@@ -1,0 +1,9 @@
+SELECT
+    DATE_TRUNC('day', block_timestamp) as DAY
+    ,platform
+    ,SUM(amount_in_usd) as trading_volume_usd
+FROM ethereum.core.ez_dex_swaps 
+WHERE block_timestamp > CURRENT_DATE() - INTERVAL '7 days'
+    AND block_timestamp < CURRENT_DATE
+GROUP BY 2, 1
+ORDER BY 2 DESC;
